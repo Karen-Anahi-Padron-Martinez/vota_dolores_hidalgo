@@ -55,6 +55,7 @@ $ flutter test
 
 ### 📸 Evidencia de Pruebas Automatizadas
 > *Captura de la terminal ejecutando `flutter test` con todas las pruebas aprobadas:*
+<img width="1110" height="653" alt="Captura de pantalla 2026-10-07 171048" src="https://github.com/user-attachments/assets/ed95b3a1-0d73-4566-b94c-cb3e98dee1a8" />
 
 ![Pruebas en Terminal](docs/evidencias/terminal_tests.png)
 
@@ -65,7 +66,9 @@ $ flutter test
 
 | Barras de Porcentajes Animadas | Revelación del Ganador (Modal Animado) |
 | :---: | :---: |
-| ![Votación](docs/evidencias/app_barras.png) | ![Ganador](docs/evidencias/app_ganador.png) |
+| (<img width="617" height="682" alt="Captura de pantalla 2026-10-07 171446" src="https://github.com/user-attachments/assets/df74fc6c-af0c-4857-aed7-00624bf49311" />
+) |(<img width="623" height="907" alt="Captura de pantalla 2026-10-07 171453" src="https://github.com/user-attachments/assets/0044c87b-1e53-4563-90fb-02002322898b" />
+) |
 
 ---
 
