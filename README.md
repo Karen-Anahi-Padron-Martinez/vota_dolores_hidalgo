@@ -1,19 +1,27 @@
-# Vota Dolores Hidalgo — Evidencia de las Pruebas
+# 🗳️ Vota Dolores Hidalgo — Evidencia y Pruebas TDD
 
-> **Desarrollo Móvil Integral** — Proyecto complementario de práctica TDD  
-> 🗳️ Votación · 📊 Barras animadas · 🏆 Revelación del ganador con animación
-
----
-
-# Evidencia de las Pruebas
-
-En este documento se presenta la evidencia de la ejecución, validación y cobertura de las pruebas unitarias y de integración desarrolladas mediante la metodología **TDD (Test-Driven Development)** para el proyecto **Vota Dolores Hidalgo**.
+> **Desarrollo Móvil Integral** — 10mo. Cuatrimestre  
+> *Plebiscito Vecinal con Arquitectura TDD · Barras Animadas · Modal de Ganador*
 
 ---
 
-## 1. Resumen de Pruebas Unitarias y de Integración
+## 📌 Descripción del Proyecto
 
-Todas las reglas de negocio del plebiscito se encuentran protegidas mediante pruebas automatizadas en `test/servicio_votacion_test.dart`:
+**Vota Dolores Hidalgo** es una aplicación móvil desarrollada en **Flutter** para gestionar un plebiscito vecinal en el municipio de Dolores Hidalgo. El sistema implementa la metodología **TDD (Test-Driven Development)** para garantizar la integridad, consistencia y seguridad en el registro de votos y el cálculo de resultados.
+
+### Reglas de Negocio Implementadas:
+1. **Registro de Voto Válido:** Incrementa el contador de la opción seleccionada.
+2. **Validación de Opción:** Rechaza votos dirigidos a opciones inexistentes (`opcionInvalida`).
+3. **Voto Único por Usuario:** Impide votos duplicados por un mismo elector (`usuarioYaVoto`).
+4. **Cálculo Porcentual Dinámico:** Calcula la proporción de votos para cada opción, evitando división por cero cuando no hay sufragios registrados.
+5. **Determinación del Ganador:** Identifica la opción mayoritaria o detecta empates múltiples.
+6. **Cierre de Votación:** Bloquea la emisión de votos una vez superada la fecha límite (`votacionCerrada`).
+
+---
+
+## 📊 1. Resumen de Pruebas Unitarias y de Integración
+
+Todas las reglas de negocio están cubiertas en `test/servicio_votacion_test.dart`:
 
 | # | Ronda / Prueba | Regla de Negocio Protegida | Resultado Esperado | Estado |
 |:---:|:---|:---|:---|:---:|
@@ -30,9 +38,9 @@ Todas las reglas de negocio del plebiscito se encuentran protegidas mediante pru
 
 ---
 
-## 2. Salida de Terminal (`flutter test`)
+## 💻 2. Salida de Terminal (`flutter test`)
 
-Ejecución de la suite completa de pruebas unitarias y de integración:
+Ejecución de la suite completa de pruebas automatizadas:
 
 ```bash
 $ flutter test
@@ -51,28 +59,106 @@ $ flutter test
 
 ---
 
-## 3. Capturas de Pantalla de Evidencia
+## 📸 3. Evidencias del Proceso TDD y de la Aplicación
 
-### 📸 Evidencia de Pruebas Automatizadas
-> *Captura de la terminal ejecutando `flutter test` con todas las pruebas aprobadas:*
+### 3.1. Ciclo TDD: Red 🔴 y Green 🟢 por Rondas
 
-![Pruebas en Terminal](docs/evidencias/terminal_tests.png)
+A continuación se documentan las fases de prueba guiadas por TDD, mostrando el fallo inicial (fase roja) y la posterior resolución (fase verde).
 
 ---
 
-### 📱 Evidencia de la Aplicación en Ejecución
-> *Capturas de la interfaz gráfica animada interactuando con las reglas probadas:*
+#### 📍 Ronda 1: Registro de un Voto Válido
 
-| Barras de Porcentajes Animadas | Revelación del Ganador (Modal Animado) |
+- **🔴 Fase Roja (Código y Consola):** Se escribe la prueba antes de definir la clase `ServicioVotacion`. El editor y la consola indican que la clase no existe.
+
+| Fase Roja (Editor) | Fase Roja (Consola) |
 | :---: | :---: |
-| ![Votación](docs/evidencias/app_barras.png) | ![Ganador](docs/evidencias/app_ganador.png) |
+| ![Ronda 1 - Test inicial en rojo](assets/Captura%20de%20pantalla%202026-10-05%20171958.png) | ![Ronda 1 - Error en terminal](assets/Captura%20de%20pantalla%202026-10-05%20172405.png) |
+
+- **🟢 Fase Verde (Consola):** Se crea el servicio mínimo y la prueba pasa exitosamente (`+1: All tests passed!`).
+
+<div align="center">
+  <img src="assets/Captura%20de%20pantalla%202026-10-05%20172446.png" alt="Ronda 1 - Test Aprobado" width="800" />
+</div>
 
 ---
 
-## 4. Checklist de Cumplimiento TDD
+#### 📍 Ronda 2: Voto por Opción Inválida
 
-- [x] Cada regla de negocio (voto único, opción válida, fecha de cierre, empates) cuenta con su prueba correspondiente.
-- [x] `ResultadoVoto` gestiona los casos de negocio esperados sin recurrir a excepciones no controladas.
-- [x] La función `obtenerResultados()` previene divisiones entre cero cuando el total de votos es 0.
-- [x] La interfaz gráfica delega todas las reglas a `ServicioVotacion` sin duplicar lógica de negocio.
-- [x] Prueba de integración que valida el flujo completo de un plebiscito vecinal y descarta votos duplicados.
+- **🔴 Fase Roja (Consola):** Al votar por un ID inexistente, el sistema falla por `Null check operator used on a null value`.
+- **🟢 Fase Verde (Editor y Consola):** Se implementa la comprobación de nulidad retornando `ResultadoVoto.opcionInvalida` (`+2: All tests passed!`).
+
+| 🔴 Fase Roja (Fallo por Null) | 🟢 Fase Verde (Test Aprobado) |
+| :---: | :---: |
+| ![Ronda 2 - Fallo en terminal](assets/Captura%20de%20pantalla%202026-10-05%20172610.png) | ![Ronda 2 - Test y Terminal Verde](assets/Captura%20de%20pantalla%202026-10-07%20165250.png) |
+
+---
+
+#### 📍 Ronda 3: Prevención de Voto Duplicado
+
+- **🔴 Fase Roja (Consola):** La prueba falla (`+2 -1`) porque el servicio aún no registra el historial de votantes y permite el segundo voto.
+- **🟢 Fase Verde (Editor y Consola):** Se agrega el conjunto `votantes` y la validación `votacion.votantes.contains(idUsuario)` (`+3: All tests passed!`).
+
+| 🔴 Fase Roja (Fallo de duplicado) | 🟢 Fase Verde (Validación exitosa) |
+| :---: | :---: |
+| ![Ronda 3 - Fallo Voto Duplicado](assets/Captura%20de%20pantalla%202026-10-07%20165335.png) | ![Ronda 3 - Código y Terminal Verde](assets/Captura%20de%20pantalla%202026-10-07%20165424.png) |
+
+---
+
+#### 📍 Ronda 4: Cálculo de Porcentajes y Casos Borde
+
+- **🔴 Fase Roja:** Se escribe la prueba para calcular porcentajes y caso borde de 0 votos. La consola reporta métodos y modelos no definidos (`obtenerResultados` y `ResultadoOpcion`).
+
+| 🔴 Método no definido | 🔴 Modelo no definido |
+| :---: | :---: |
+| ![Ronda 4 - Método no definido](assets/Captura%20de%20pantalla%202026-10-07%20165506.png) | ![Ronda 4 - Ajuste de modelo](assets/Captura%20de%20pantalla%202026-10-07%20165654.png) |
+
+---
+
+### 3.2. Suite Completa y Prueba de Integración (10/10 Pasadas)
+
+Validación integral del flujo del plebiscito simulando varios vecinos, descarte de votos repetidos y determinación del ganador legítimo.
+
+<div align="center">
+  <img src="assets/Captura%20de%20pantalla%202026-10-07%20171048.png" alt="Suite Completa 10 de 10 pruebas aprobadas" width="850" />
+  <p><em>Prueba de integración en editor y terminal con los 10 tests aprobados exitosamente.</em></p>
+</div>
+
+---
+
+### 3.3. Interfaz Gráfica en Ejecución
+
+Capturas de la aplicación en funcionamiento interactuando con las reglas de negocio, animaciones de progreso y modal de resultados.
+
+| Votación: Jardín Principal (100%) | Modal: Revelación del Ganador | Votación: Alumbrado Analco (100%) |
+| :---: | :---: | :---: |
+| <img src="assets/Captura%20de%20pantalla%202026-10-07%20171446.png" width="280" alt="Votación Jardín Principal" /> | <img src="assets/Captura%20de%20pantalla%202026-10-07%20171453.png" width="280" alt="Modal Resultado Ganador" /> | <img src="assets/Captura%20de%20pantalla%202026-10-07%20171601.png" width="280" alt="Votación Alumbrado" /> |
+| *Visualización de barra porcentual animada* | *Diálogo animado con el ganador del plebiscito* | *Interacción reactiva con cambio de opción* |
+
+---
+
+## ✅ 4. Checklist de Cumplimiento TDD
+
+- [x] **Ronda 1:** Registro de voto válido con incremento de contador.
+- [x] **Ronda 2:** Rechazo controlado de opciones inexistentes (`ResultadoVoto.opcionInvalida`).
+- [x] **Ronda 3:** Restricción de voto único por elector (`ResultadoVoto.usuarioYaVoto`).
+- [x] **Ronda 4:** Cálculo dinámico de porcentajes y prevención de división entre cero cuando el total es 0.
+- [x] **Ronda 5:** Detección de ganador con mayor cantidad de sufragios.
+- [x] **Ronda 6:** Gestión de empates múltiples en primer lugar.
+- [x] **Ronda 7:** Control estricto de fecha de cierre de la votación (`ResultadoVoto.votacionCerrada`).
+- [x] **Integración:** Simulación completa de plebiscito vecinal con 10/10 pruebas automatizadas aprobadas.
+- [x] **UI Reactiva:** La interfaz gráfica delega todas las reglas a `ServicioVotacion` sin duplicar lógica de negocio.
+
+---
+
+## 🚀 5. Ejecución del Proyecto
+
+### Ejecutar las pruebas automatizadas:
+```bash
+flutter test
+```
+
+### Ejecutar la aplicación:
+```bash
+flutter run
+```
